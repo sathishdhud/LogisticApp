@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistic Regression</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Logistic Regression Model</h1>
+
+        <!-- Upload Dataset Form -->
+        <div class="mb-4">
+            <h3>Upload Dataset</h3>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="dataset" class="form-control mb-2" required>
+                <button type="submit" class="btn btn-success">Train Model</button>
+            </form>
+        </div>
+
+        <!-- Display Model Accuracy and Confusion Matrix -->
+        {% if accuracy %}
+            <div class="mb-4">
+                <h3>Model Accuracy: {{ accuracy }}</h3>
+                <h4>Confusion Matrix:</h4>
+                <pre>{{ confusion_mat }}</pre>
+            </div>
+        {% endif %}
+
+        <!-- Prediction Form -->
+        <div class="mb-4">
+            <h3>Predict with Logistic Regression Model</h3>
+            <form method="POST" action="{{ url_for('predict_logistic') }}">
+                <!-- Add input fields dynamically based on the dataset structure -->
+                <div class="mb-2">
+                    <label for="input1" class="form-label">Input Feature 1:</label>
+                    <input type="text" name="input1" class="form-control" required>
+                </div>
+                <!-- Add more input fields as needed -->
+                <button type="submit" class="btn btn-primary">Predict</button>
+            </form>
+        </div>
+
+        <!-- Display Prediction Result -->
+        {% if prediction %}
+            <div class="alert alert-info">
+                <h4>Prediction Result: {{ prediction }}</h4>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
